@@ -1,4 +1,3 @@
-
 def transform_location(chinese_city):
     # 中文到英文的城市名映射表
     city_dict = {
@@ -13,8 +12,14 @@ def transform_location(chinese_city):
         # 添加更多的城市映射...
     }
 
-    # Check if the input is in Chinese
-    if all('\u4e00' <= char <= '\u9fff' for char in chinese_city):
-        return city_dict.get(chinese_city, "城市名称未找到")
-    else:
-        return chinese_city
+    # 1. 尝试完全匹配
+    if chinese_city in city_dict:
+        return city_dict[chinese_city]
+    
+    # 2. 尝试子串匹配（例如"杭州西湖"中包含"杭州"）
+    for key, value in city_dict.items():
+        if key in chinese_city:
+            return value
+            
+    # 3. 如果都匹配不到，直接返回原始值（由后端数据库或LLM兜底），不再返回错误提示字符串
+    return chinese_city

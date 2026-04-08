@@ -1,4 +1,4 @@
-# 携程智能旅行助手 (Ctrip Intelligent Travel Assistant) 🚀
+﻿# 携程智能旅行助手 (Ctrip Intelligent Travel Assistant) 🚀
 
 这是一个基于 **LangGraph** 和 **阿里云百炼 (DashScope)** 构建的高级智能旅行代理系统。它采用多代理协同架构（Multi-Agent Architecture），能够处理复杂的航班查询、酒店预订、租车及旅行推荐业务，并集成 RAG（检索增强生成）技术用于政策问答。
 
@@ -97,4 +97,4 @@ travel_assistant/
 ---
 
 > [!TIP]
-> **提示**：运行脚本前请确保 `travel2.sqlite` 数据库存在，首次运行会自动调用 `init_db.py`（若脚本包含）初始化基础数据。
+> **提示**：运行脚本前请确保 `travel2.sqlite` 数据库存在，首次运行会自动调用 `init_db.py`（若脚本包含）初始化基础数据。相关数据库连接：[百度网盘 (提取码: 6ykw)](https://pan.baidu.com/s/1pU3Jo-np16I0ih00leQpwg?pwd=6ykw)，下载后请放置在 `trip_assistant` 文件夹下。
