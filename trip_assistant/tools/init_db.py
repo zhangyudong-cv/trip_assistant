@@ -3,11 +3,14 @@ import shutil
 import sqlite3
 import pandas as pd
 
+# 获取项目根目录
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # 这个数据库才是，项目测试过程中使用的
-local_file = "../travel_new.sqlite"
+local_file = os.path.join(BASE_DIR, "travel_new.sqlite")
 
 # 创建一个备份文件，允许我们在测试的时候可以重新开始
-backup_file = "../travel2.sqlite"
+backup_file = os.path.join(BASE_DIR, "travel2.sqlite")
 
 
 def update_dates():

@@ -1,3 +1,4 @@
+import os
 from sqlite3 import connect, Cursor
 from datetime import date, datetime
 from typing import Optional, Union
@@ -6,7 +7,9 @@ from langchain_core.tools import tool
 
 from tools.location_trans import transform_location
 
-db = "../travel_new.sqlite"  # 这是数据库文件名
+# 获取当前文件所在的目录
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+db = os.path.join(BASE_DIR, "travel_new.sqlite")  # 这是数据库文件名
 
 
 @tool

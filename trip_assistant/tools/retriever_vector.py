@@ -1,3 +1,4 @@
+import os
 import re
 import numpy as np
 from langchain_community.embeddings import ZhipuAIEmbeddings
@@ -6,19 +7,36 @@ from langchain_openai import OpenAIEmbeddings
 
 # 读取 FAQ 文本文件
 faq_text = None
-with open('../order_faq.md', encoding='utf8') as f:
+# 获取当前文件所在的目录，并定位到 trip_assistant 根目录
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+faq_path = os.path.join(BASE_DIR, "order_faq.md")
+
+with open(faq_path, encoding='utf8') as f:
     faq_text = f.read()
-# 将 FAQ 文本按标题分割成多个文档
-docs = [{"page_content": txt} for txt in re.split(r"(?=\n##)", faq_text)]
 
-# embeddings_model = ZhipuAIEmbeddings(
-#     model="embedding-3",
-#     api_key="4afc2ced3f174bc89dd17b3e47d2586d.qqcyAW2zEEqj5rY3",
-# )
+# 将 FAQ 文本按标题分割，并进行深度清洗
+# 资深架构师提示：针对阿里云等接口，需严格过滤空值并限制单段长度
+docs_raw = re.split(r"(?=\n##)", faq_text)
+docs = []
+for txt in docs_raw:
+    clean_txt = txt.strip()
+    if clean_txt:
+        # 截断超长文本（防止单段超过 Token 限制），并强制转换为字符串
+        docs.append({"page_content": str(clean_txt)[:2000]})
 
-embeddings_model = OpenAIEmbeddings(
-    openai_api_key="sk-doD81WgxSoF9A6xYzhgW7GUh5frRwPETI8mDq3ce4UaWnCPF",
-    openai_api_base="https://xiaoai.plus/v1"
+if not docs:
+    raise ValueError("FAQ 文件解析失败或内容为空，请检查 order_faq.md")
+
+from langchain_community.embeddings import DashScopeEmbeddings
+from dotenv import load_dotenv
+
+# 加载环境变量
+load_dotenv()
+
+# 使用阿里云百炼专用 SDK 以获得最佳兼容性
+embeddings_model = DashScopeEmbeddings(
+    model=os.getenv("EMBEDDING_MODEL", "text-embedding-v3"),
+    dashscope_api_key=os.getenv("OPENAI_API_KEY")
 )
 
 
