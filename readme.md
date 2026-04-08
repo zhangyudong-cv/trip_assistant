@@ -1,4 +1,4 @@
-﻿# 携程智能旅行助手 (Ctrip Intelligent Travel Assistant) 🚀
+# 携程智能旅行助手 (Ctrip Intelligent Travel Assistant) 🚀
 
 这是一个基于 **LangGraph** 和 **阿里云百炼 (DashScope)** 构建的高级智能旅行代理系统。它采用多代理协同架构（Multi-Agent Architecture），能够处理复杂的航班查询、酒店预订、租车及旅行推荐业务，并集成 RAG（检索增强生成）技术用于政策问答。
 
@@ -14,7 +14,7 @@
     *   **酒店助手**: 处理酒店预订与变更。
     *   **用车助手**: 管理租车服务。
     *   **旅行推荐助手**: 提供景点导览与推荐。
-*   **知识检索 (RAG)**: 集成阿里云百炼 	ext-embedding-v3 模型，通过向量检索快速回答企业政策问题。
+*   **知识检索 (RAG)**: 集成阿里云百炼 `text-embedding-v3` 模型，通过向量检索快速回答企业政策问题。
 
 ---
 
@@ -23,25 +23,25 @@
 ### 1. 环境准备
 确保你的系统已安装 Python 3.10+ 环境。
 
-`powershell
+```powershell
 # 创建虚拟环境
 python -m venv venv
 
 # 激活虚拟环境 (Windows)
 .\venv\Scripts\activate
-`
+```
 
 ### 2. 安装依赖包
 激活环境后，执行以下命令安装核心依赖（包括 LangChain, LangGraph, DashScope 等）：
 
-`powershell
+```powershell
 pip install -r requirements.txt
-`
+```
 
 ### 3. 配置环境变量
 在项目根目录创建 .env 文件，并填入你的 API 密钥：
 
-`env
+```env
 # 阿里云百炼配置
 OPENAI_API_KEY=your_dashscope_api_key
 OPENAI_API_BASE=https://dashscope.aliyuncs.com/compatible-mode/v1
@@ -50,22 +50,32 @@ EMBEDDING_MODEL=text-embedding-v3
 
 # 搜索工具配置 (Tavily)
 TAVILY_API_KEY=your_tavily_api_key
-`
+```
 
-### 4. 运行系统
-由于项目采用模块化结构，启动时需要正确设置 PYTHONPATH：
+### 4. 启动系统
 
-`powershell
-# 设置源码根目录并运行主流程图
- = ".\trip_assistant"
+项目采用了模块化架构，源码位于 `trip_assistant` 文件夹内。为了让 Python 能够正确识别包路径，启动时必须指定 `PYTHONPATH`。
+
+**Windows (PowerShell) 推荐命令：**
+```powershell
+# 1. 设置源码根路径
+$env:PYTHONPATH = ".\trip_assistant"
+
+# 2. 启动图形化流程测试脚本
 python .\trip_assistant\graph_chat\第三个流程图.py
-`
+```
+
+**或者一行命令启动：**
+```powershell
+$env:PYTHONPATH=".\trip_assistant"; python .\trip_assistant\graph_chat\第三个流程图.py
+```
 
 ---
 
+
 ## 📁 项目结构
 
-`	ext
+```text
 travel_assistant/
 ├── trip_assistant/          # 源代码目录
 │   ├── graph_chat/          # 状态图逻辑与各级助理定义
@@ -75,7 +85,7 @@ travel_assistant/
 │   └── travel2.sqlite       # 示例业务数据库
 ├── requirements.txt         # 依赖清单
 └── .env                     # 环境变量配置文件
-`
+```
 
 ---
 
@@ -87,4 +97,4 @@ travel_assistant/
 ---
 
 > [!TIP]
-> **提示**：运行脚本前请确保 	ravel2.sqlite 数据库存在，首次运行会自动调用 init_db.py（若脚本包含）初始化基础数据。
+> **提示**：运行脚本前请确保 `travel2.sqlite` 数据库存在，首次运行会自动调用 `init_db.py`（若脚本包含）初始化基础数据。
