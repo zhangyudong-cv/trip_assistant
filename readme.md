@@ -62,12 +62,12 @@ TAVILY_API_KEY=your_tavily_api_key
 $env:PYTHONPATH = ".\trip_assistant"
 
 # 2. 启动图形化流程测试脚本
-python .\trip_assistant\graph_chat\第三个流程图.py
+python .\trip_assistant\graph_chat\main.py
 ```
 
 **或者一行命令启动：**
 ```powershell
-$env:PYTHONPATH=".\trip_assistant"; python .\trip_assistant\graph_chat\第三个流程图.py
+$env:PYTHONPATH=".\trip_assistant"; python .\trip_assistant\graph_chat\main.py
 ```
 
 ---

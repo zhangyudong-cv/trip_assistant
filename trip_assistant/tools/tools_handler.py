@@ -2,7 +2,7 @@ from langchain_core.messages import ToolMessage
 from langchain_core.runnables import RunnableLambda
 from langgraph.prebuilt import ToolNode
 
-
+#如果报错，就返回错误信息，让主助理重新调用工具
 def handle_tool_error(state) -> dict:
     """
     处理工具调用时发生的错误。
@@ -25,7 +25,7 @@ def handle_tool_error(state) -> dict:
         ]
     }
 
-
+#ToolNode自动选择工具并且执行
 def create_tool_node_with_fallback(tools: list) -> dict:
     """
     创建一个带有回退机制的工具节点。当指定的工具执行失败时（例如抛出异常），将触发回退操作。

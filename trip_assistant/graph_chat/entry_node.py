@@ -3,7 +3,7 @@ from langchain_core.messages import ToolMessage
 
 
 #
-def create_entry_node(assistant_name: str, new_dialog_state: str) -> Callable:
+def  create_entry_node(assistant_name: str, new_dialog_state: str) -> Callable:
     """
     这是一个函数工程： 创建一个入口节点函数，当对话状态转换时调用。
     该函数生成一条新的对话消息，并更新对话的状态。
@@ -22,7 +22,25 @@ def create_entry_node(assistant_name: str, new_dialog_state: str) -> Callable:
         """
         # 获取最后一个消息中的工具调用ID
         tool_call_id = state["messages"][-1].tool_calls[0]["id"]
-
+# {
+#     "messages": [
+#         # 用户之前的提问
+#         HumanMessage(content="我想改签我的航班。"),
+#         # 主助理发出的“转接请求”消息
+#         AIMessage(
+#             content="", 
+#             tool_calls=[
+#                 {
+#                     "name": "ToFlightBookingAssistant", # AI 想要调用这个“专有名词”
+#                     "args": {},
+#                     "id": "call_abc123"  # <--- 这就是 L24 要拿的 ID！！
+#                 }
+#             ]
+#         )
+#     ],
+#     "user_info": "张三, 航班号 CA123...", # 之前节点查出来的用户信息
+#     "dialog_state": ["primary_assistant"]   # 当前还是主助理状态
+# }
         return {
             "messages": [
                 ToolMessage(

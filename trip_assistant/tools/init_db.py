@@ -1,3 +1,5 @@
+#其实就是把备份的数据库，覆盖到本地数据库，然后把时间更新到当前时间
+
 import os
 import shutil
 import sqlite3
@@ -11,6 +13,7 @@ local_file = os.path.join(BASE_DIR, "travel_new.sqlite")
 
 # 创建一个备份文件，允许我们在测试的时候可以重新开始
 backup_file = os.path.join(BASE_DIR, "travel2.sqlite")
+
 
 
 def update_dates():

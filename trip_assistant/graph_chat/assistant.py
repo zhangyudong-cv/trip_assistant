@@ -95,3 +95,13 @@ assistant_runnable = primary_assistant_prompt | llm.bind_tools(
     ]
 )
 
+#假设调用了，返回值是这样的：
+# AIMessage(
+#     content="",
+#     tool_calls=[{
+#         "name": "ToFlightBookingAssistant",
+#         "args": {"request": "用户想要把明天的航班改签到后天。"},
+#         "id": "call_456"
+#     }]
+# )
+

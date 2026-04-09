@@ -31,7 +31,7 @@ def get_user_info(state: State, config: RunnableConfig):
     返回:
         dict: 包含用户信息的新状态字典。
     """
-    return {"user_info": fetch_user_flight_information.invoke({}, config)}
+    return {"user_info": fetch_user_flight_information.invoke({}, config)}    #自动保存到user_info的状态字段
 
 
 # 新增：fetch_user_info节点首先运行，这意味着我们的助手可以在不采取任何行动的情况下看到用户的航班信息
@@ -58,7 +58,7 @@ def route_primary_assistant(state: dict):
     :return: 下一步应跳转到的节点名
     """
     route = tools_condition(state)  # 判断下一步的方向
-    if route == END:
+    if route == END:  #不调用工具
         return END  # 如果结束条件满足，则返回END
     tool_calls = state["messages"][-1].tool_calls  # 获取最后一条消息中的工具调用
     if tool_calls:
@@ -147,7 +147,7 @@ while True:
             _print_event(event, _printed)
 
         current_state = graph.get_state(config)
-        if current_state.next:
+        if current_state.next:  
             user_input = input(
                 "您是否批准上述操作？输入'y'继续；否则，请说明您请求的更改。\n"
             )
